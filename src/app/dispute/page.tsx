@@ -208,7 +208,15 @@ export default function DisputePage() {
                                     <p className="text-sm text-gray-500">Billing & Finance Dept.</p>
                                     <p className="text-sm text-gray-500">Metro Manila, Philippines</p>
                                 </div>
-                                <div className="text-right">
+                                <div className="text-right flex flex-col items-end gap-2">
+                                    <div className="flex gap-2 mb-2">
+                                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0" title="Copy to Clipboard">
+                                            <Copy size={14} />
+                                        </Button>
+                                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0" title="Download PDF">
+                                            <Download size={14} />
+                                        </Button>
+                                    </div>
                                     <p className="font-bold">{new Date().toLocaleDateString()}</p>
                                     <p className="text-sm text-gray-500">Ref: {referenceNo}</p>
                                 </div>

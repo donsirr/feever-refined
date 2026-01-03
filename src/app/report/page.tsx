@@ -45,22 +45,11 @@ export default function ReportPage() {
                         <p className="text-secondary-light">Analysis ID: #FE-2024-8821 • Generated Just Now</p>
                     </div>
 
-                    <Card className="flex items-center gap-6 px-6 py-4 bg-white shadow-md border-l-4 border-l-amber-500">
-                        <div className="relative h-16 w-16 flex items-center justify-center">
-                            <svg className="h-full w-full transform -rotate-90">
-                                <circle className="text-gray-100" strokeWidth="6" stroke="currentColor" fill="transparent" r="28" cx="32" cy="32" />
-                                <circle className="text-amber-500" strokeWidth="6" strokeDasharray={175} strokeDashoffset={175 - (175 * trustScore) / 100} strokeLinecap="round" stroke="currentColor" fill="transparent" r="28" cx="32" cy="32" />
-                            </svg>
-                            <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                <span className="text-lg font-bold text-secondary">{trustScore}</span>
-                            </div>
-                        </div>
-                        <div>
-                            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Trust Score</p>
-                            <h3 className="text-xl font-bold text-amber-600">High Risk</h3>
-                            <p className="text-xs text-secondary-light">Multiple overcharges detected</p>
-                        </div>
-                    </Card>
+                    <Link href="/scan">
+                        <Button variant="outline" className="flex items-center gap-2">
+                            <PieChart size={16} /> Start New Analysis
+                        </Button>
+                    </Link>
                 </div>
 
                 <div className="grid lg:grid-cols-12 gap-8 h-[calc(100vh-200px)] min-h-[800px]">
