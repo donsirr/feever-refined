@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 import { FileText, Copy, Download, AlertTriangle, CheckSquare, Square } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -106,9 +107,16 @@ export default function DisputePage() {
             <Navbar />
 
             <main className="container mx-auto px-4 pt-32 pb-32 max-w-7xl">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <h1 className="text-3xl font-bold text-secondary mb-2">Generate Dispute Letter</h1>
-                    <p className="text-secondary-light">Select the charges you wish to contest and customize your formal letter.</p>
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                    <div>
+                        <h1 className="text-3xl font-bold text-secondary mb-2">Generate Dispute Letter</h1>
+                        <p className="text-secondary-light">Select the charges you wish to contest and customize your formal letter.</p>
+                    </div>
+                    <Link href="/scan">
+                        <Button variant="outline" className="flex items-center gap-2">
+                            Start New Analysis
+                        </Button>
+                    </Link>
                 </div>
 
                 <div className="grid lg:grid-cols-12 gap-8">

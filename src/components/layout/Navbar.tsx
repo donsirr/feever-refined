@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { ShieldCheck, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ModeToggle } from "@/components/mode-toggle";
 
 export const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -30,7 +29,6 @@ export const Navbar = () => {
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <ModeToggle />
                     <Link href="/scan">
                         <Button variant="primary" size="sm" className="rounded-full px-5 text-sm hidden sm:flex">
                             Launch App
