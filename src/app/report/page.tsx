@@ -78,7 +78,7 @@ export default function ReportPage() {
                         </Card>
 
                         {/* Receipt Visualization */}
-                        <div className="h-[500px] relative group perspective-[1000px]">
+                        <div className="h-[350px] sm:h-[500px] relative group perspective-[1000px]">
                             <div className="relative w-full h-full bg-slate-200/50 rounded-2xl p-2 overflow-hidden flex flex-col items-center">
                                 <div className="w-full bg-white shadow-2xl relative flex flex-col receipt-zigzag transform transition-transform duration-500 group-hover:rotate-0 rotate-1 origin-top-center h-full">
                                     <div className="p-6 text-center border-b-2 border-dashed border-gray-300">
@@ -162,20 +162,90 @@ export default function ReportPage() {
                             </div>
                         </Card>
 
-                        {/* Detailed Item Breakdown Table */}
+                        {/* Detailed Item Breakdown - Responsive */}
                         <Card className="glass-panel p-0 overflow-hidden flex-1 shadow-2xl shadow-slate-200/50 border-slate-200/60">
                             <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-white/50 backdrop-blur-sm">
                                 <div>
                                     <h3 className="font-bold text-slate-800 text-lg">Detailed Item Analysis</h3>
                                     <p className="text-sm text-slate-500">7 Line Items Processed</p>
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="hidden sm:flex gap-2">
                                     <Badge variant="danger">{BILL_ITEMS.filter(i => i.status === 'danger').length} Overcharges</Badge>
                                     <Badge variant="warning">{BILL_ITEMS.filter(i => i.status === 'warning').length} Warnings</Badge>
                                 </div>
                             </div>
 
-                            <div className="overflow-x-auto">
+                            {/* Mobile Card List View (< md) */}
+                            <div className="md:hidden">
+                                {BILL_ITEMS.map((item) => (
+                                    <div
+                                        key={item.id}
+                                        onClick={() => setSelectedItem(selectedItem === item.id ? null : item.id)}
+                                        className={cn(
+                                            "p-4 border-b border-slate-100 active:bg-slate-50 transition-colors cursor-pointer",
+                                            selectedItem === item.id ? "bg-teal-50/50" : ""
+                                        )}
+                                    >
+                                        <div className="flex justify-between items-start mb-2">
+                                            <div className="flex-1 pr-2">
+                                                <h4 className="font-semibold text-slate-900 text-sm">{item.name}</h4>
+                                                <span className="text-xs text-slate-500">{item.category}</span>
+                                            </div>
+                                            <div className="text-right">
+                                                <div className="font-mono font-bold text-slate-900">₱{item.price.toLocaleString()}</div>
+                                                <div className="text-xs text-slate-400">Ref: ₱{item.referencePrice.toLocaleString()}</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center justify-between mt-2">
+                                            {item.status === 'danger' ? (
+                                                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-red-600">
+                                                    <AlertCircle size={12} /> Overcharge
+                                                </span>
+                                            ) : item.status === 'warning' ? (
+                                                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-600">
+                                                    <Info size={12} /> Warning
+                                                </span>
+                                            ) : (
+                                                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600">
+                                                    <CheckCircle size={12} /> Verified
+                                                </span>
+                                            )}
+
+                                            <ChevronRight size={16} className={cn("text-slate-300 transition-transform", selectedItem === item.id ? "rotate-90" : "")} />
+                                        </div>
+
+                                        {/* Expanded Mobile Detail */}
+                                        {selectedItem === item.id && (
+                                            <div className="mt-4 pt-3 border-t border-teal-100/50 animate-fade-in">
+                                                <div className="bg-white/80 rounded-lg p-3 border border-teal-100 shadow-sm text-sm">
+                                                    <h5 className="font-bold text-slate-700 mb-2 flex items-center gap-2 text-xs">
+                                                        <ShieldCheck size={14} className="text-teal-600" /> AI Analysis
+                                                    </h5>
+                                                    {item.status !== 'ok' ? (
+                                                        <p className="text-slate-600">
+                                                            Flagged as {item.status === 'danger' ? 'High Risk' : 'Medium Risk'}.
+                                                            <br />
+                                                            <span className="font-mono font-bold">₱{item.price}</span> is
+                                                            <span className="font-bold text-red-500 mx-1">
+                                                                {Math.round(((item.price - item.referencePrice) / item.referencePrice) * 100)}% higher
+                                                            </span>
+                                                            than DOH Ref.
+                                                        </p>
+                                                    ) : (
+                                                        <p className="text-slate-600">
+                                                            <span className="text-emerald-600 font-bold">Passed.</span> Price is within valid DOH range.
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Desktop Table View (>= md) */}
+                            <div className="hidden md:block overflow-x-auto">
                                 <table className="w-full text-left text-sm">
                                     <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-100">
                                         <tr>

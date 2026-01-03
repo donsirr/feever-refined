@@ -32,7 +32,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[180px] w-full max-w-5xl mx-auto">
 
             {/* Tile 1: New Scan (Large) */}
-            <Link href="/scan" className="md:col-span-2 md:row-span-2 group">
+            <Link href="/scan" className="row-span-2 md:col-span-2 md:row-span-2 group">
               <div className="h-full glass-panel rounded-3xl p-8 relative overflow-hidden transition-all duration-500 group-hover:shadow-[0_20px_40px_-12px_rgba(15,118,110,0.1)] group-hover:-translate-y-1">
                 <div className="absolute top-0 right-0 p-12 bg-gradient-to-br from-teal-50 to-emerald-50 rounded-full blur-3xl opacity-60 -translate-y-1/2 translate-x-1/4 group-hover:scale-110 transition-transform duration-700"></div>
 
