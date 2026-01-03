@@ -52,9 +52,9 @@ export default function ReportPage() {
                     </Link>
                 </div>
 
-                <div className="grid lg:grid-cols-12 gap-8 h-[calc(100vh-200px)] min-h-[800px]">
+                <div className="grid lg:grid-cols-12 gap-8">
                     {/* Left Column: Visuals & High-Level Stats (4 cols) */}
-                    <div className="lg:col-span-4 flex flex-col gap-6 h-full overflow-y-auto pr-2 custom-scrollbar">
+                    <div className="lg:col-span-4 flex flex-col gap-6">
                         {/* Trust Score Card */}
                         <Card className="glass-panel p-6 border-l-4 border-l-amber-500 bg-amber-50/50">
                             <div className="flex items-center justify-between mb-4">
@@ -106,7 +106,7 @@ export default function ReportPage() {
                     </div>
 
                     {/* Right Column: Detailed Breakdown & Benefit Stacker (8 cols) */}
-                    <div className="lg:col-span-8 flex flex-col gap-6 h-full overflow-y-auto pr-2 custom-scrollbar pb-20">
+                    <div className="lg:col-span-8 flex flex-col gap-6">
                         {/* Benefit Stacker / Coverage Analyzer */}
                         <Card className="glass-panel p-6 shadow-2xl shadow-slate-200/50 border-slate-200/60 w-full mb-8">
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-6 gap-4">
@@ -188,51 +188,90 @@ export default function ReportPage() {
                                     </thead>
                                     <tbody className="divide-y divide-slate-100 bg-white/40">
                                         {BILL_ITEMS.map((item) => (
-                                            <tr
-                                                key={item.id}
-                                                onClick={() => setSelectedItem(selectedItem === item.id ? null : item.id)}
-                                                className={cn(
-                                                    "hover:bg-teal-50/30 transition-colors cursor-pointer group",
-                                                    selectedItem === item.id ? "bg-teal-50/50" : ""
+                                            <React.Fragment key={item.id}>
+                                                <tr
+                                                    onClick={() => setSelectedItem(selectedItem === item.id ? null : item.id)}
+                                                    className={cn(
+                                                        "hover:bg-teal-50/30 transition-colors cursor-pointer group border-l-4",
+                                                        selectedItem === item.id
+                                                            ? "bg-teal-50/50 border-l-teal-500"
+                                                            : "border-l-transparent"
+                                                    )}
+                                                >
+                                                    <td className="px-6 py-4 font-medium text-slate-900 align-top">
+                                                        {item.name}
+                                                    </td>
+                                                    <td className="px-6 py-4 text-slate-500 align-top">{item.category}</td>
+                                                    <td className="px-6 py-4 text-right font-mono font-medium align-top">₱{item.price.toLocaleString()}</td>
+                                                    <td className="px-6 py-4 text-right font-mono text-slate-400 align-top">₱{item.referencePrice.toLocaleString()}</td>
+                                                    <td className="px-6 py-4 align-top">
+                                                        {item.status === 'danger' ? (
+                                                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-600">
+                                                                <AlertCircle size={14} /> Overcharge
+                                                            </span>
+                                                        ) : item.status === 'warning' ? (
+                                                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-600">
+                                                                <Info size={14} /> Warning
+                                                            </span>
+                                                        ) : (
+                                                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-600">
+                                                                <CheckCircle size={14} /> Verified
+                                                            </span>
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                                {/* Expanded Detail Row */}
+                                                {selectedItem === item.id && (
+                                                    <tr className="bg-teal-50/30 animate-fade-in">
+                                                        <td colSpan={5} className="px-6 pb-6 pt-0 border-b border-teal-100/50">
+                                                            <div className="bg-white/80 rounded-xl p-4 border border-teal-100 shadow-sm ml-4 mt-2">
+                                                                <h4 className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
+                                                                    <ShieldCheck size={16} className="text-teal-600" /> AI Verification Analysis
+                                                                </h4>
+                                                                {item.status !== 'ok' ? (
+                                                                    <div className="space-y-2">
+                                                                        <p className="text-sm text-slate-600">
+                                                                            This item is flagged as <span className="font-bold text-red-600">{item.status === 'danger' ? 'High Risk' : 'Medium Risk'}</span>.
+                                                                            The billed amount of <span className="font-mono font-bold">₱{item.price}</span> is
+                                                                            <span className="font-bold text-red-500 mx-1">
+                                                                                {Math.round(((item.price - item.referencePrice) / item.referencePrice) * 100)}% higher
+                                                                            </span>
+                                                                            than the DOH Reference Price of ₱{item.referencePrice}.
+                                                                        </p>
+                                                                        <div className="flex gap-3 mt-3">
+                                                                            <div className="text-xs bg-slate-100 px-3 py-1.5 rounded-md text-slate-500">
+                                                                                Ref Code: DOH-2024-L882
+                                                                            </div>
+                                                                            <div className="text-xs bg-slate-100 px-3 py-1.5 rounded-md text-slate-500">
+                                                                                Circular: 2024-0012
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : (
+                                                                    <p className="text-sm text-slate-600">
+                                                                        <span className="text-emerald-600 font-bold">Verification Passed.</span> The billed price is within the acceptable range of the DOH Price Reference Index (2024). No discrepancies found.
+                                                                    </p>
+                                                                )}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 )}
-                                            >
-                                                <td className="px-6 py-4 font-medium text-slate-900 align-top">
-                                                    {item.name}
-                                                    {selectedItem === item.id && item.status !== 'ok' && (
-                                                        <div className="text-xs text-slate-500 mt-2 font-normal animate-slide-up p-2 bg-white/50 rounded-lg border border-slate-100 shadow-sm">
-                                                            Analysis: Price exceeds DOH Index by <span className="font-bold text-red-500">{Math.round(((item.price - item.referencePrice) / item.referencePrice) * 100)}%</span>.
-                                                        </div>
-                                                    )}
-                                                </td>
-                                                <td className="px-6 py-4 text-slate-500 align-top">{item.category}</td>
-                                                <td className="px-6 py-4 text-right font-mono font-medium align-top">₱{item.price.toLocaleString()}</td>
-                                                <td className="px-6 py-4 text-right font-mono text-slate-400 align-top">₱{item.referencePrice.toLocaleString()}</td>
-                                                <td className="px-6 py-4 align-top">
-                                                    {item.status === 'danger' ? (
-                                                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-600">
-                                                            <AlertCircle size={14} /> Overcharge
-                                                        </span>
-                                                    ) : item.status === 'warning' ? (
-                                                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-600">
-                                                            <Info size={14} /> Warning
-                                                        </span>
-                                                    ) : (
-                                                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-600">
-                                                            <CheckCircle size={14} /> Verified
-                                                        </span>
-                                                    )}
-                                                </td>
-                                            </tr>
+                                            </React.Fragment>
                                         ))}
                                     </tbody>
                                 </table>
                             </div>
                         </Card>
 
-                        <div className="flex justify-end gap-4">
-                            <Link href="/dispute">
-                                <Button variant="danger" size="xl" pulsing className="px-8 shadow-xl shadow-red-500/20">
-                                    Generate Dispute Letter <ChevronRight size={20} className="ml-2" />
+                        <div className="flex flex-col sm:flex-row items-center justify-end gap-6 mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-100/50">
+                            <div className="text-center sm:text-right">
+                                <p className="text-sm font-bold text-slate-700">Ready to contest these charges?</p>
+                                <p className="text-xs text-slate-500">Create a formal dispute letter in seconds.</p>
+                            </div>
+                            <Link href="/dispute" className="w-full sm:w-auto">
+                                <Button variant="primary" size="xl" className="w-full sm:w-auto px-8 py-6 text-lg font-bold shadow-xl shadow-teal-500/20 group hover:-translate-y-0.5">
+                                    Generate Dispute Letter
+                                    <ChevronRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
                                 </Button>
                             </Link>
                         </div>
