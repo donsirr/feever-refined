@@ -42,7 +42,7 @@ export default function ReportPage() {
                 <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div>
                         <h1 className="text-3xl font-bold text-secondary mb-1">Bill Health Report</h1>
-                        <p className="text-secondary-light">Analysis ID: #FE-2024-8821 • Generated Just Now</p>
+                        <p className="text-secondary-light">Analysis ID: #FE-2026-8821 • Generated Just Now</p>
                     </div>
 
                     <Link href="/scan">
@@ -86,7 +86,7 @@ export default function ReportPage() {
                                             <ShieldCheck size={20} />
                                         </div>
                                         <h2 className="font-mono font-bold text-xl text-slate-900 uppercase tracking-widest">RECEIPT</h2>
-                                        <p className="font-mono text-[10px] text-slate-400">#FE-2024-8821</p>
+                                        <p className="font-mono text-[10px] text-slate-400">#FE-2026-8821</p>
                                     </div>
                                     <div className="p-6 flex-1 font-mono text-xs overflow-y-auto custom-scrollbar">
                                         <div className="flex justify-between text-[10px] text-gray-400 uppercase tracking-wider mb-2">
@@ -148,7 +148,7 @@ export default function ReportPage() {
                                         <span className="text-xs font-semibold text-slate-600 uppercase">HMO / Insurance</span>
                                     </div>
                                     <span className="text-xl font-bold text-slate-900">₱{BENEFIT_DATA.hmo.toLocaleString()}</span>
-                                    <span className="text-xs text-slate-400">Maxicara Health</span>
+                                    <span className="text-xs text-slate-400">Maxicare Health</span>
                                 </div>
 
                                 <div className="flex flex-col gap-1 p-3 rounded-lg bg-orange-50 border border-orange-100/50">

@@ -176,7 +176,7 @@ export default function MalasakitPage() {
 
                     <div className="flex items-center gap-4 w-full sm:w-auto">
                         <div className="hidden sm:block text-right">
-                            <p className="text-xs text-slate-400 font-mono">ID: REF-MLA-2024</p>
+                            <p className="text-xs text-slate-400 font-mono">ID: REF-MLA-2026</p>
                             <p className="text-xs font-bold text-emerald-600">ALL DOCUMENTS VERIFIED</p>
                         </div>
                         <Button className="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200" size="lg">
