@@ -32,30 +32,6 @@ Fee-Ver is a modern web application designed to help Filipino patients verify th
 
 ---
 
-## 🛠️ Technology Stack
-
-- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-  - Custom "Apple Dark Mode" inspired theme.
-  - Glassmorphism UI components (`.glass-panel`).
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Fonts**: [Inter](https://rsms.me/inter/) (UI) & [Merriweather](https://fonts.google.com/specimen/Merriweather) (Headers).
-
----
-
-## 🚀 Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 ## 📂 Project Structure
 
 ```
@@ -74,10 +50,19 @@ src/
 └── lib/                 # Utilities & Constants
 ```
 
-## 🎨 Design System
+## 🗺️ Roadmap
 
-The application uses a refined **Dark Mode** aesthetic by default, featuring:
-- **Deep Blacks (`#000000`)** for backgrounds.
-- **Dark Grays (`#1C1C1E`)** for card surfaces.
-- **Teal (`#14B8A6`)** as the primary accelerator color.
-- **Glassmorphism** keyframes for smooth, modern interactions.
+- [ ] **Phase 1: Enhanced Intelligence** (Q1 2026)
+    - [ ] Advanced OCR for handwritten doctors' notes.
+    - [ ] Real-time integration with PhilHealth Case Rate API.
+    - [ ] Multi-page receipt stitching.
+
+- [ ] **Phase 2: Platform Expansion** (Q2 2026)
+    - [ ] Native Mobile App (iOS & Android).
+    - [ ] User Accounts for audit history tracking.
+    - [ ] "Report to DOH" one-click submission.
+
+- [ ] **Phase 3: Ecosystem** (Q3 2026)
+    - [ ] Partner Network: Connect with pro-bono healthcare lawyers.
+    - [ ] HMO Direct Connect: Login to Maxicare/Intellicare to see real-time balance.
+    - [ ] Community Watch: Crowdsourced pricing database for private clinics.
